@@ -3,11 +3,22 @@
 A curated library of tested AI prompts built over 16 weeks.
 
 ## Structure
+
 - `playbook/week1-foundations.md` — AI basics & first prompts
 
 ## About
-Built by MEFIBOSHETHI Z MOSHI during the AI Prompting course at Xplosion Academy.
+
+Built by Mefiboshethi Moshi during the AI Prompting course at Xplosion Academy.
 
 ## Tools Used
-- Claude (Anthropic)
+
 - ChatGPT (OpenAI)
+- Claude (Anthropic)
+
+## Purpose
+
+This repository documents my journey in learning prompt engineering, including:
+- prompt design techniques
+- iteration practice
+- AI response evaluation
+- real-world use cases

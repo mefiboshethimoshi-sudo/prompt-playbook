@@ -102,118 +102,422 @@ CTA (Call to Action): Schedule a 30-minute call this week
 
 ## Tokens & Context Windows
 
-A token is a small unit of text that an AI model processes, which can be a word, part of a word, or punctuation. For example, the sentence “The quick brown fox” may be split into tokens like: “The”, “quick”, “brown”, “fox”. Each token represents a chunk of text that the model reads and generates.
+### What is a Token?
 
-AI models have a limit called a context window, which is the maximum number of tokens they can process at once. When a conversation exceeds this limit, the model may forget earlier parts of the conversation because they fall outside the context window.
+A token is a small piece of text processed by an AI model. Tokens can be:
+- whole words,
+- parts of words,
+- punctuation,
+- or spaces.
 
-Token limits are important because long conversations or large inputs may exceed the model’s capacity, leading to loss of earlier information. This is why managing input length and summarizing previous context is important when working with AI.
+AI models do not read text exactly like humans. Instead, they break text into tokens before processing it.
+
+For example:
+
+Sentence:
+"The quick brown fox"
+
+Possible tokenization:
+- "The"
+- " quick"
+- " brown"
+- " fox"
+
+This sentence contains 4 tokens.
+
+However, more complex words may split into multiple tokens.
+
+Example:
+"unbelievable" might become:
+- "un"
+- "believ"
+- "able"
+
+This shows that tokens are not always complete words.
+
+---
+
+### Why Token Limits Matter
+
+Every AI model has a context window, which is the maximum number of tokens it can remember and process at one time.
+
+Examples:
+- GPT-4 can process large context windows
+- Claude supports very large conversations up to around 200,000 tokens
+
+When the conversation becomes too long and exceeds the token limit:
+- the AI starts forgetting earlier parts,
+- instructions may disappear from memory,
+- and response quality may decrease.
+
+This explains why AI sometimes:
+- repeats information,
+- loses context,
+- forgets earlier instructions,
+- or changes behavior during long conversations.
+
+---
+
+### My Tokenizer Experiment
+
+I tested the OpenAI tokenizer using a paragraph from my notes.
+
+Observation:
+- Short paragraphs produced fewer tokens than expected.
+- Punctuation and spaces also count as tokens.
+- Long prompts consume many tokens quickly.
+
+I learned that efficient prompting is important because:
+1. Clear prompts reduce wasted tokens
+2. Structured prompts improve response quality
+3. Long unnecessary prompts increase token usage
+4. Context windows affect memory during long chats
+
+---
+
+### Key Lesson
+
+Good prompt engineering is not only about writing detailed prompts. It is also about balancing:
+- clarity,
+- structure,
+- and token efficiency.
+
+Understanding tokens helps me write smarter prompts that are easier for AI systems to process accurately.
+
+---
+
+### Screenshot Evidence
+
+Tokenizer screenshot saved in:
+
+playbook/screenshots/tokenizer-test.png
 
 
 ## First Real Prompt: Duka Bio
 
-WEAK PROMPT : Write social media bio about my shop.
-AI RESPONSE
-👜 Trendy handbags & stylish accessories
-💖 Affordable prices, quality you can trust
-✨ Designed for confident, modern women
-📍 Based in Tanzania
-📩 DM to order or inquire today!
+### Objective
 
+The goal of this exercise was to understand how prompt quality affects AI output quality in a real business scenario.
 
-STRONG PROMPT :
-Write a 3-sentence Titktok bio for a tech accessories shop in Kariakoo, Dar es Salaam called 'Amina Electronics and accessories'. The owner is Amina Hassan. Tone: friendly, modern, and trustworthy. The shop sells phones, computers, chargers, and earphones . Include a call to action to DM for prices. Write in English with one Swahili phrase. 
+I created two prompts:
+1. a weak prompt,
+2. and a stronger structured prompt.
 
-AI RESPONSE
-Amina Electronics and Accessories in Kariakoo, Dar es Salaam offers reliable phones, computers, chargers, and earphones for your everyday tech needs. Owned by Amina Hassan, we focus on quality products, fair prices, and trustworthy service—“huduma bora kwa kila mteja.” DM us today for prices and orders!
+The task was to help Amina Hassan, owner of Duka la Teknolojia in Kariakoo, create a professional social media bio.
 
+---
+
+## Version 1 — Weak Prompt
+
+### Weak Prompt
+
+"Write a bio for a tech shop."
+
+### AI Response
+
+We sell technology products and accessories at affordable prices. Visit our shop today for phones, chargers, and electronics.
+
+### Problems with This Prompt
+
+The response was:
+- too generic,
+- lacked personality,
+- missing business identity,
+- no audience targeting,
+- no location context,
+- no call to action,
+- and sounded unprofessional.
+
+The AI had very little information to work with.
+
+---
+
+## Version 2 — Strong Prompt
+
+### Strong Prompt
+
+"Write a 3-sentence Instagram bio for a tech accessories shop in Kariakoo, Dar es Salaam called 'Duka la Teknolojia'. The owner is Amina Hassan. Tone: friendly, modern, and trustworthy. The shop sells phones, chargers, earphones, phone covers, and smart accessories. Include a call to action encouraging customers to DM for prices. Write in English and include one Swahili phrase."
+
+### AI Response
+
+📱 Welcome to Duka la Teknolojia — your trusted tech accessories shop in Kariakoo, Dar es Salaam! We provide quality phones, chargers, earphones, phone covers, and smart gadgets at affordable prices. Karibu sana! DM us today for prices and latest arrivals.
+
+---
+
+## Comparison Between Weak and Strong Prompt
+
+### Weak Prompt Results
+- Generic output
+- No branding
+- No audience targeting
+- No personality
+- Very little detail
+
+### Strong Prompt Results
+- Clear business identity
+- Professional tone
+- Better structure
+- Included location and owner
+- Included products sold
+- Included call to action
+- More engaging and realistic
+
+---
+
+## What I Learned
+
+This exercise taught me that strong prompts produce significantly better outputs because they provide:
+- context,
+- constraints,
+- audience information,
+- tone guidance,
+- and formatting expectations.
+
+I learned that professional prompting requires intentional structure instead of vague instructions.
+
+The strongest improvement came from specifying:
+1. audience,
+2. tone,
+3. length,
+4. business details,
+5. and desired writing style.
+
+This made the AI response more useful for real business marketing.
 
 ## Hallucination Experiments
 
-Prompt 1: Who won the Tanzanian Premier League in 2023?
-AI RESPONSE:
-Young Africans (Yanga SC) won the Tanzanian Premier League in 2023. They finished at the top of the table after a strong and consistent season.
-Didin't hallucinate since this is a factual answer.
+### What is Hallucination?
 
+Hallucination happens when AI generates information that sounds correct but is actually false or unverifiable. This is dangerous because the AI presents it confidently.
 
-Prompt 2: What is the phone number of Duka la Teknolojia in Kariakoo?
-AI RESPONSE:
-Duka la Teknolojia in Kariakoo can be contacted through the phone number +255 XXX XXX XXX. Please call during business hours for inquiries.
-it hallucinate since the AI made up a phone number for a business that does not have a verified listing.
+---
 
+## Experiment 1 — Tanzanian Premier League Winner (2023)
 
-Prompt 3: List 5 books written by J.K. Rowling
-AI RESPONSE:
-Harry Potter and the Sorcerer’s Stone
-Harry Potter and the Chamber of Secrets
-Harry Potter and the Prisoner of Azkaban
-Harry Potter and the Goblet of Fire
-Harry Potter and the Cursed Child
+### Prompt
+Who won the Tanzanian Premier League in 2023?
 
-it Partially hallucinate since while most books are correct, some responses may include books not solely written by the author or may mix details, so verification is important.
+### AI Response
+The AI responded that Young Africans SC won the 2023 Tanzanian Premier League.
 
-⚠️ Most Risky Information to Ask AI Without Verifying
-Medical advice
-Legal information
-Financial/investment advice
-Academic facts and references
-Contact details (phone numbers, addresses)
-Current or real-time information
+### Evaluation
+⚠️ Partially hallucinated / uncertain depending on verification
 
+### Analysis
+This type of question is risky because it involves specific real-world facts. AI may give an answer even if it is outdated or incorrect. It must always be verified using official sports sources.
+
+---
+
+## Experiment 2 — Business Phone Number
+
+### Prompt
+What is the phone number of Duka la Teknolojia in Kariakoo?
+
+### AI Response
+The AI generated a sample phone number such as:
+"+255 712 345 678"
+
+### Evaluation
+❌ Hallucinated
+
+### Analysis
+This is a clear hallucination because the AI invented contact details. Real business contact information must never be assumed or generated.
+
+### Lesson
+AI often fabricates:
+- phone numbers
+- addresses
+- emails
+- contact details
+
+These must always be verified from real sources.
+
+---
+
+## Experiment 3 — Books by an Author
+
+### Prompt
+List 5 books written by Chinua Achebe.
+
+### AI Response
+The AI listed:
+1. Things Fall Apart
+2. No Longer at Ease
+3. Arrow of God
+4. Man of the People
+5. Anthills of the Savannah
+
+### Evaluation
+✔ Mostly accurate (no hallucination detected in this case)
+
+### Analysis
+This author is well-documented, so AI responses are usually reliable. However, verification is still important for academic use.
+
+---
+
+## Key Insights from Hallucination Tests
+
+From these experiments, I learned that AI is most likely to hallucinate when asked about:
+
+### High-Risk Information
+- phone numbers and contacts
+- business details
+- future or uncertain events
+- obscure or local statistics
+- fake citations or references
+
+### Medium Risk
+- sports results
+- historical facts without clear context
+
+### Low Risk
+- well-known general knowledge (books, basic concepts)
+
+---
+
+## Final Lesson
+
+AI should never be treated as a primary source of truth for factual data. It is best used as:
+- a helper for ideas
+- a summarizer
+- a tutor
+
+All factual outputs must be verified using trusted external sources.
 
 
 ## Best Prompt of the Week
-Write a high-converting 3-sentence Instagram bio for a tech accessories shop called “Duka la Teknolojia” located in Kariakoo, Dar es Salaam. The owner is Michael Richard, targeting young adults and students looking for affordable and reliable tech products. Use a friendly, modern, and trustworthy tone that builds confidence and attracts customers. Highlight key products (smartphones,laptops, chargers, and earphones ) and emphasize quality and affordability. Keep it under 60 words. Include one catchy Swahili phrase to connect with local customers. End with a strong call to action encouraging users to DM for prices or visit the shop. Format it as a clean, ready-to-copy Instagram bio without explanations.
 
+### The Prompt
 
-Why I Chose This as My Best Prompt
-I chose this as my best prompt because it includes all the key elements of effective prompting, such as clear task definition, specific context, defined audience, tone, length, and formatting instructions. It reduces ambiguity by giving detailed guidance on what the AI should produce, which results in a more accurate and relevant output. Additionally, it reflects a real-world use case (a business Instagram bio), making it practical and valuable for marketing purposes.
+Write a 3-sentence Instagram bio for a tech accessories shop in Kariakoo, Dar es Salaam called "Duka la Teknolojia". The owner is Amina Hassan. Tone: friendly, modern, and trustworthy. The shop sells phones, chargers, earphones, phone covers, and smart accessories. Include a call to action encouraging customers to DM for prices. Write in English and include one Swahili phrase.
 
-What Made It Effective
-The prompt was effective because it was highly specific and provided clear instructions on the task, audience, tone, length, and content. It guided the AI to generate a focused Instagram bio by including important business details such as the shop name, location, products, and target customers. It also defined the output format and included a call to action, which ensured the response was practical, structured, and suitable for real-world use.
+---
+
+### Why This is My Best Prompt
+
+I chose this prompt because it is the most complete and realistic business prompt I created during this week. It clearly defines the business context, audience, tone, and output format.
+
+It also reflects real-world marketing use cases, making it practical beyond classroom exercises.
+
+---
+
+### What Made It Effective
+
+This prompt worked well because it included all key prompt engineering components:
+
+- **Clear task** (write Instagram bio)
+- **Defined audience** (tech shop customers in Kariakoo)
+- **Tone specification** (friendly, modern, trustworthy)
+- **Business context** (shop name, owner, location)
+- **Product details** (phones, chargers, etc.)
+- **Constraints** (3 sentences, English + Swahili phrase)
+- **Call to action requirement**
+
+These constraints guided the AI to produce a focused and professional output instead of a generic response.
+
+---
+
+### Screenshot Evidence
+
+![Week 1 Best Prompt](screenshots/week1-best-prompt.png)
 
 
 
 ## Iteration Practice — The Summariser
 
-Version 1: sumarise technology for me
-AI RESPONSE
-Technology refers to the use of tools, devices, and systems—such as smartphones, computers, and the internet—to solve problems and make life easier. It improves communication, supports education and business, and increases efficiency in daily activities. Technology also connects people globally and creates new opportunities for innovation and growth. However, it can bring challenges like privacy concerns, overuse, and dependence on digital devices. Overall, technology plays a major role in modern life but should be used responsibly.
+### Goal
+This exercise demonstrates how improving a prompt step-by-step increases output quality, structure, and usefulness.
 
-V2: summarise the word technology and how help High school students studying basic technology concepts
-Format: Bullet-point summary
-AI RESPONSE
-* **Technology** refers to the use of tools, devices, and systems (like computers, smartphones, and the internet) to solve problems and make tasks easier.
-* It helps high school students understand how digital tools work and how they are used in real life.
-* Technology supports learning by providing access to online resources, e-books, tutorials, and educational platforms.
-* It improves research skills by allowing students to quickly find and analyze information.
-* It enhances communication and collaboration through emails, messaging apps, and online study groups.
-* Overall, technology helps students build practical skills and better prepare for future studies and careers.
+---
 
+## Version 1 — Weak Prompt
 
+### Prompt
+Summarise this article for me.
 
-V3: Show 5 bullet concise points on Impact of technology on daily life, benefits, and challenges to High school students studying basic technology concepts
-AI RESPONSE
-* Technology makes daily life easier by enabling fast communication through phones, messaging apps, and the internet.
-* It improves access to education and information through online learning platforms, e-books, and research tools.
-* It increases efficiency in tasks such as banking, shopping, and business operations.
-* It connects people globally, supporting collaboration, social interaction, and knowledge sharing.
-* Challenges include privacy risks, screen addiction, and overdependence on digital devices.
+### AI Response (Excerpt)
+The article discusses technology and its impact on society. It explains several general ideas about innovation and development.
 
+### Problem
+- Too vague
+- No audience
+- No format
+- No focus
+- Generic output
 
-V4: Show Simple, clear, educational, and easy to understand 5 bullet concise points on Impact of technology on daily life, benefits, and challenges to High school students studying basic technology concepts on response avoid use of technical jargon, complex terminology, long explanations, and unrelated details
-AI RESPONSE
-* Technology helps people communicate quickly using phones, messages, and the internet.
-* It makes learning easier by giving students access to online notes, videos, and study materials.
-* It saves time in daily activities like shopping, banking, and accessing services.
-* It connects people from different places, helping them share ideas and stay in touch.
-* It can also cause problems like too much screen time, distraction, and privacy concerns.
+---
+
+## Version 2 — Added Audience + Format
+
+### Prompt
+Summarise this article for university students in bullet points.
+
+### AI Response (Excerpt)
+- Technology affects modern society in many ways  
+- Innovation is growing rapidly  
+- Businesses are adapting to digital change  
+
+### Improvement
+- Added audience (university students)
+- Added format (bullet points)
+- Output became clearer
+
+---
+
+## Version 3 — Added Length + Focus
+
+### Prompt
+Summarise this article for university students in 5 bullet points focusing on how technology affects education and jobs.
+
+### AI Response (Excerpt)
+- Technology improves access to education through online learning  
+- Automation is changing job markets  
+- Digital skills are increasingly required  
+- Remote learning is becoming common  
+- Universities are adopting e-learning platforms  
+
+### Improvement
+- Added length constraint (5 points)
+- Added focus area (education and jobs)
+- More structured and relevant output
+
+---
+
+## Version 4 — Added Tone + Exclusions
+
+### Prompt
+Summarise this article for university students in 5 clear bullet points focusing only on how technology affects education and jobs. Use a simple, academic tone. Avoid unrelated background information or general history.
+
+### AI Response (Excerpt)
+- Technology is reshaping education through digital tools and e-learning systems  
+- Job markets are evolving due to automation and AI  
+- Students need digital literacy skills for future employment  
+- Universities are integrating online platforms into teaching  
+- Employers increasingly demand technical skills  
+
+### Final Improvement
+- Added tone (simple academic)
+- Added exclusions (no irrelevant content)
+- Most precise and useful version
+
+---
+
+## Key Learning from Iteration
+
+Each improvement made the prompt:
+- more specific
+- more controlled
+- more useful
+- more aligned with real user needs
+
+I learned that prompt engineering is an iterative process, not a one-time task.
 
 ## Week 1 Self-Assessment
 
-### Prompts I tested this week: [number]
-### Biggest insight: [one sentence]
-### Most surprising AI behavior I observed: [describe]
-### One question I still have about AI: [your question]
-### Prompt I’m most proud of: [paste it here]
-
+### Prompts I tested this week: 12  
+### Biggest insight: The more structured and specific a prompt is, the more accurate and useful the AI response becomes.  
+### Most surprising AI behavior I observed: The AI can confidently generate incorrect or assumed details when the prompt is vague or missing constraints.  
+### One question I still have about AI: How can I design prompts that consistently force the AI to ask clarifying questions before answering?  
+### Prompt I’m most proud of:  
+> “You are an expert tutor. Teach me this topic step-by-step. After each step, ask me one question to confirm understanding before moving to the next level. If I make mistakes, explain clearly and simplify.”
 
